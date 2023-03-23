@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://yj34k7ymxndd"]
+
+[ext_resource type="Script" path="res://Arena.gd" id="1_4oall"]
+[ext_resource type="PackedScene" uid="uid://ddwqaomn56q0e" path="res://mob.tscn" id="4_kd43d"]
+[ext_resource type="Script" path="res://Camera.gd" id="5_gawii"]
+[ext_resource type="Script" path="res://SpawnTimer.gd" id="6_b2ldl"]
+
+[sub_resource type="Curve2D" id="Curve2D_oremu"]
+_data = {
+"points": PackedVector2Array(803.573, -5.29637, -803.573, 5.29637, 11, 462.248, 13.3484, 683.232, -13.3484, -683.232, -729, -19.839, -875.549, 7.88376, 875.549, -7.88376, 5, -551.523, -19.7936, -655.295, 19.7936, 655.295, 790, -37.694, 702.126, 0, -702.126, 0, 19, 462.248, 0, 0, 0, 0, 11, 462.248)
+}
+point_count = 6
+
+[node name="Arena" type="Node2D"]
+texture_filter = 1
+texture_repeat = 1
+script = ExtResource("1_4oall")
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("5_gawii")
+
+[node name="MobPath" type="Path2D" parent="."]
+position = Vector2(-13, 30)
+scale = Vector2(1, 1.00812)
+curve = SubResource("Curve2D_oremu")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(11, 462.248)
+rotation = 3.135
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+script = ExtResource("6_b2ldl")
+
+[node name="Mob" parent="." instance=ExtResource("4_kd43d")]
+position = Vector2(517, -42)
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

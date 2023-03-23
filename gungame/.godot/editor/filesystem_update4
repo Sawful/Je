@@ -1,0 +1,8 @@
+res://default_env.tres
+res://Main_scene.tscn
+res://Mob.gd
+res://ship.tscn
+res://ship_variables.tscn
+res://mob.tscn
+res://shot.tscn
+res://Ship.gd

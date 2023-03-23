@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://fe6nsinj7lkm"]
+
+[ext_resource type="Script" path="res://Ship.gd" id="1_bag20"]
+[ext_resource type="Texture2D" uid="uid://bct30ov6vrn31" path="res://Sprites/Ship_s.png" id="2_usual"]
+[ext_resource type="AudioStream" uid="uid://bom3h71vdalcq" path="res://Music/GG000.wav" id="3_nlu8d"]
+[ext_resource type="Script" path="res://Conductor.gd" id="4_w8ikq"]
+
+[sub_resource type="GDScript" id="GDScript_qwbjc"]
+script/source = "extends Sprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eavrk"]
+size = Vector2(24, 28)
+
+[sub_resource type="Gradient" id="Gradient_r7upc"]
+offsets = PackedFloat32Array(0, 0.349727, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.634371, 0.32417, 0.886414, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8sxy3"]
+gradient = SubResource("Gradient_r7upc")
+
+[sub_resource type="Environment" id="Environment_46wic"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.96
+adjustment_enabled = true
+adjustment_contrast = 1.5
+adjustment_color_correction = SubResource("GradientTexture2D_8sxy3")
+
+[node name="Ship" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_bag20")
+
+[node name="Ship_Sprite" type="Sprite2D" parent="."]
+show_behind_parent = true
+light_mask = 3
+visibility_layer = 3
+z_as_relative = false
+texture_filter = 1
+texture_repeat = 1
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("2_usual")
+script = SubResource("GDScript_qwbjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eavrk")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.75
+autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_46wic")
+
+[node name="Conductor" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nlu8d")
+volume_db = -10.0
+script = ExtResource("4_w8ikq")
+
+[node name="StartTimer" type="Timer" parent="Conductor"]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="beat_signal" from="Conductor" to="." method="_on_conductor_beat_signal"]
+[connection signal="finished" from="Conductor" to="Conductor" method="_on_finished"]
+[connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]
