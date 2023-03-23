@@ -11,14 +11,14 @@ collision_layer = 2
 gravity_scale = 0.0
 script = ExtResource("1_w4y4l")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Mob_Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_kuw1u")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Mob_Collision" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
 shape = SubResource("CircleShape2D_ve2lo")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
 scale = Vector2(1.5, 1.5)
-enable_node_path = NodePath("../CollisionShape2D")
+enable_node_path = NodePath("../Mob_Collision")

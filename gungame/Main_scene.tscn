@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://yj34k7ymxndd"]
+[gd_scene load_steps=7 format=3 uid="uid://yj34k7ymxndd"]
 
 [ext_resource type="Script" path="res://Arena.gd" id="1_4oall"]
+[ext_resource type="Script" path="res://MobPath.gd" id="3_m5ox0"]
 [ext_resource type="PackedScene" uid="uid://ddwqaomn56q0e" path="res://mob.tscn" id="4_kd43d"]
 [ext_resource type="Script" path="res://Camera.gd" id="5_gawii"]
 [ext_resource type="Script" path="res://SpawnTimer.gd" id="6_b2ldl"]
@@ -20,20 +21,21 @@ script = ExtResource("1_4oall")
 script = ExtResource("5_gawii")
 
 [node name="MobPath" type="Path2D" parent="."]
-position = Vector2(-13, 30)
-scale = Vector2(1, 1.00812)
+scale = Vector2(2, 2)
 curve = SubResource("Curve2D_oremu")
+script = ExtResource("3_m5ox0")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2(11, 462.248)
 rotation = 3.135
 
+[node name="Mob" parent="." instance=ExtResource("4_kd43d")]
+position = Vector2(517, -42)
+
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
+autostart = true
 script = ExtResource("6_b2ldl")
-
-[node name="Mob" parent="." instance=ExtResource("4_kd43d")]
-position = Vector2(517, -42)
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

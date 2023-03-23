@@ -59,15 +59,15 @@ func shoot_laser(laser_direction: Vector2):
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	$Ship_Collision.disabled = false
 
 func _on_body_entered(_body):
 	hide() # Player disappears after being hit.
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	$Ship_Collision.set_deferred("disabled", true)
 
-func _on_conductor_beat_signal(position):
+func _on_conductor_beat_signal(_position):
 	var laser_direction = self.global_position.direction_to(get_global_mouse_position())
 	shoot_laser(laser_direction)
 	attackTimer.start()

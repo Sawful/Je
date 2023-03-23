@@ -53,14 +53,14 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_usual")
 script = SubResource("GDScript_qwbjc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Ship_Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_eavrk")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.75
 autostart = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="Ship_Env" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_46wic")
 
 [node name="Conductor" type="AudioStreamPlayer" parent="."]
@@ -71,7 +71,6 @@ script = ExtResource("4_w8ikq")
 [node name="StartTimer" type="Timer" parent="Conductor"]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="beat_signal" from="Conductor" to="." method="_on_conductor_beat_signal"]
 [connection signal="finished" from="Conductor" to="Conductor" method="_on_finished"]
 [connection signal="timeout" from="Conductor/StartTimer" to="Conductor" method="_on_start_timer_timeout"]

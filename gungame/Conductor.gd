@@ -47,6 +47,8 @@ func play_with_beat_offset(num):
 
 
 func _on_start_timer_timeout():
+	
+	print('starttimertimeout')
 	song_position_in_beats += 1
 	if song_position_in_beats < beats_before_start -1:
 		$StartTimer.start()
@@ -68,3 +70,7 @@ func play_from_beat(beat, offset):
 
 #func _on_finished():
 	#play()
+
+
+func _on_spawn_timer_timeout():
+	pass # Replace with function body.
